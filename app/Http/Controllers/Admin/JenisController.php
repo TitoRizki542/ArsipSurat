@@ -11,6 +11,7 @@ class JenisController extends Controller
     public function index()
     {
         $dataJenis = Jenis::orderBy('id', 'ASC')->get();
+
         return view('admin.jenis.index', compact('dataJenis'));
     }
 
@@ -40,6 +41,7 @@ class JenisController extends Controller
         ]);
 
         $dataJenis = Jenis::findOrFail($id);
+        
         $dataJenis->update([
             'nama' => $request->nama,
             'deskripsi' => $request->deskripsi,

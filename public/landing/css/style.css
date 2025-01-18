@@ -369,7 +369,7 @@
   position: relative;
   overflow: hidden;
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url(../img/carousel-1.jpg);
+    url(../img/bg1.png);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;

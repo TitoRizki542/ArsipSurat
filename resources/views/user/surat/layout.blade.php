@@ -51,8 +51,6 @@
                 <div class="navbar-nav ms-auto py-0">
                     <a href="index.html" class="nav-item nav-link">Beranda</a>
                     <a href="{{ route('surat.index') }}" class="nav-item nav-link">Surat</a>
-                    <a href="service.html" class="nav-item nav-link">Services</a>
-                    <a href="contact.html" class="nav-item nav-link">Contact Us</a>
                 </div>
                 @auth
                     <div class="nav-item dropdown">
