@@ -22,6 +22,8 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
+        // dd($validateData);
+
         if (Auth::guard('admin')->attempt($validateData)) {
             $request->session()->regenerate();
             return redirect()->route('dashboard.index')->with('success', 'Kamu Sudah Berhasil Login!');

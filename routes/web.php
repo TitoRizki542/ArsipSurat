@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AuthMiddleware;
 use App\Http\Controllers\Admin\ArsipController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
@@ -15,7 +16,8 @@ use Illuminate\Routing\RouteBinding;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 //Surat User
-Route::middleware('auth')->group(function () {
+
+Route::middleware('auth:user')->group(function () {
     Route::get('surat', [SuratController::class, 'index'])->name('surat.index');
     Route::get('surat/{id}', [SuratController::class, 'detail'])->name('surat.detail');
     Route::get('surat-tag', [SuratController::class, 'tag'])->name('surat.tag');
@@ -23,19 +25,22 @@ Route::middleware('auth')->group(function () {
 
 
 //Auth
-Route::get('login', [LoginController::class, 'index'])->name('auth.login');
-Route::post('login', [LoginController::class, 'login'])->name('login');
-Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('login', [LoginController::class, 'index'])->name('auth.login');
+    Route::post('login', [LoginController::class, 'login'])->name('login');
+    Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+
 
 //Admin
-Route::middleware('auth')->group(function () {
-    //Route Dashboard
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+//Route Dashboard
+
+Route::middleware(['auth:admin'])->group(function () {
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     //Route Jenis Surat
     Route::get('jenis-surat', [JenisController::class, 'index'])->name('jenis.index');
     Route::get('tambah-jenis', [JenisController::class, 'create'])->name('jenis.create');
     Route::post('simpan-jenis', [JenisController::class, 'store'])->name('jenis.store');
     Route::put('edit-jenis/{id}', [JenisController::class, 'edit'])->name('jenis.edit');
+    Route::delete('hapus-jenis/{id}', [JenisController::class, 'destroy'])->name('jenis.delete');
     //Route Kategori Surat
     Route::get('kategori-surat', [KategoriController::class, 'index'])->name('kategori.index');
     Route::get('tambah-kategori', [KategoriController::class, 'create'])->name('kategori.create');
@@ -66,4 +71,3 @@ Route::middleware('auth')->group(function () {
     Route::post('simpan-user', [UserController::class, 'store'])->name('pengguna.store');
     Route::delete('simpan-user/{id}', [UserController::class, 'destroy'])->name('pengguna.delete');
 });
-

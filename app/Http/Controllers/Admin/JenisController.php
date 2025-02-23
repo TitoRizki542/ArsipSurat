@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Jenis;
+use App\Models\Surat;
 
 class JenisController extends Controller
 {
@@ -48,5 +49,16 @@ class JenisController extends Controller
         ]);
 
         return redirect()->route('jenis.index')->with('success', 'Data Jenis berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $dataKategori = Jenis::findOrFail($id);
+        if (Surat::where('jenis_id', $id)->exists()) {
+            return redirect()->back()->with('error', 'Data Jenis Kategori tidak dapat dihapus, Karena digunakan dalam surat.');
+        }
+        $dataKategori->delete();        
+
+        return redirect()->route('jenis.index')->with('success', 'Data Jenis berhasil dihapus.');
     }
 }

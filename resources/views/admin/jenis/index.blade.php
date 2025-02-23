@@ -71,6 +71,15 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <form action="{{ route('jenis.delete', $data->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger rounded-pill">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
