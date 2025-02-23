@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Kategori;
 use Illuminate\Http\Request;
+use App\Models\Kategori;
+use App\Models\Surat;
 
 class KategoriController extends Controller
 {
@@ -46,6 +47,17 @@ class KategoriController extends Controller
         ]);
 
         return redirect()->route('kategori.index')->with('success', 'Data kategori berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $dataKategori = Kategori::findOrFail($id);
+        if (Surat::where('kategori_id', $id)->exists()) {
+            return redirect()->back()->with('error', 'Data Kategori tidak dapat dihapus, Karena digunakan dalam surat.');
+        }
+        $dataKategori->delete();        
+
+        return redirect()->route('kategori.index')->with('success', 'Data kategori berhasil dihapus.');
     }
 }
 

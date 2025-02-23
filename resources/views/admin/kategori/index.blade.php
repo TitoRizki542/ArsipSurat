@@ -71,6 +71,17 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <form action="{{ route('kategori.delete', $data->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger rounded-pill">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
+
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -79,11 +90,5 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
-            <div class="card">
-
-            </div>
-        </div>
     </div>
-
 @endsection

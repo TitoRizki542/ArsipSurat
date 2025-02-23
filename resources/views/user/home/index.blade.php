@@ -12,7 +12,7 @@
                 </div>
                 <div class="row g-4">
                     @foreach ($indexKategori as $kategori)
-                        <div class="col-md-6 col-lg-6 col-xl-2 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="col-md-6 col-lg-6 col-xl-2 wow fadeInUp" data-wow-delay="0.5s">
                             <div class="feature-item p-4 shadow">
                                 <div class="feature-icon p-4 mb-4">
                                     <i class="fas fa-info-circle fa-4x text-primary"></i>
@@ -35,7 +35,7 @@
                         sint dolorem autem obcaecati, ipsam mollitia hic.
                     </p> --}}
                 </div>
-                <div class=" wow fadeInUp" data-wow-delay="0.2s">
+                <div class=" wow fadeInUp" data-wow-delay="0.5s">
                     <div class="row">
                         @foreach ($indexSurat as $surat)
                             <div class="col-lg-4">

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('surat', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('jenis_id')->nullable()->constrained('jenis')->cascadeOnUpdate();
-            $table->foreignId('kategori_id')->nullable()->constrained('kategori')->cascadeOnUpdate();
+            $table->foreignId('jenis_id')->nullable()->constrained('jenis')->cascadeOnUpdate()->onDelete('restrict');
+            $table->foreignId('kategori_id')->nullable()->constrained('kategori')->cascadeOnUpdate()->onDelete('restrict');
             $table->string('nomor_surat');
             $table->string('nama_surat');
             $table->date('tanggal_surat');
