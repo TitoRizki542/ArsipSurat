@@ -5,8 +5,8 @@
         <div class="container text-center py-5" style="max-width: 900px;">
             <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">Arsip Surat</h4>
             <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
-                <li class="breadcrumb-item"><a href="index.html">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="#">Surat</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('home.index') }}">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('surat.index') }}">Surat</a></li>
                 <li class="breadcrumb-item active text-primary">Arsip</li>
             </ol>
         </div>
@@ -48,18 +48,19 @@
                         </div>
                     </div>
                 </div>
-
                 <div class=" wow fadeInUp" data-wow-delay="0.2s">
                     <div class="row">
                         @foreach ($indexSurat as $surat)
                             <div class="col-lg-4">
-                                <div class="blog-item p-4 mb-5">
+                                <div class="blog-item p-4 mb-5 shadow">
                                     <div class="blog-img mb-4">
                                         <img src="{{ URL::asset('landing') }}/img/service-1.jpg"
                                             class="img-fluid w-100 rounded" alt="">
                                         <div class="blog-title">
-                                            <a href="" class="btn btn-sm">{{ $surat->jenis->nama }}</a>
-                                            <a href="" class="btn btn-sm">{{ $surat->kategori->nama }}</a>
+                                            <a href="" class="btn btn-sm" onclick="return false;"
+                                                style="pointer-events: none">{{ $surat->jenis->nama }}</a>
+                                            <a href="" class="btn btn-sm" onclick="return false;"
+                                                style="pointer-events: none">{{ $surat->kategori->nama }}</a>
                                         </div>
                                     </div>
                                     <a href="#" class="h4 d-inline-block mb-3">{{ $surat->nama_surat }}</a>

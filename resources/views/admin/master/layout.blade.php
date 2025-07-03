@@ -11,7 +11,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ URL::asset('assets') }}/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{ URL::asset('assets') }}/img/logo.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -47,6 +47,8 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ URL::asset('assets') }}/js/config.js"></script>
+
+
 </head>
 
 <body>
@@ -234,7 +236,7 @@
                 <footer class="content-footer footer bg-footer-theme">
                     <div class="container-xxl d-flex flex-wrap justify-content-center py-2 flex-md-row flex-column">
                         <div>
-                            <p>Sistem Informasi Website</p>
+                            <p>Sistem Arsip Surat, DPMP4KB Kab Magelang</p>
                         </div>
                     </div>
                 </footer>
@@ -275,6 +277,7 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
 </body>
 
 </html>

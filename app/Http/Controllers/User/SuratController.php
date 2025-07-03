@@ -15,7 +15,9 @@ class SuratController extends Controller
         $indexSurat = Surat::with('jenis','kategori')->get();
 
         if($query = request()->cari){
-            $indexSurat = Surat::where('isi_surat', 'like', '%' .$query. '%')->get();
+            $indexSurat = Surat::where('isi_surat', 'like', '%' .$query. '%')
+            ->orWhere('nama_surat', 'like', '%' .$query. '%')
+            ->get();
         }
 
         if($cariTag = request()->tag){

@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Surat;
 
-class Kategori extends Model
+class Bidang extends Model
 {
     use HasFactory;
 
-    protected $table = 'kategori';
+    protected $table = 'bidang';
 
     protected $fillable = [
         'nama',

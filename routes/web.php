@@ -15,26 +15,25 @@ use App\Models\Surat;
 use Illuminate\Routing\RouteBinding;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
-//Surat User
 
-Route::middleware('auth:user')->group(function () {
-    Route::get('surat', [SuratController::class, 'index'])->name('surat.index');
-    Route::get('surat/{id}', [SuratController::class, 'detail'])->name('surat.detail');
-    Route::get('surat-tag', [SuratController::class, 'tag'])->name('surat.tag');
+//Surat User
+Route::middleware(['auth:web'])->group(function () {
+Route::get('surat', [SuratController::class, 'index'])->name('surat.index');
+Route::get('surat/{id}', [SuratController::class, 'detail'])->name('surat.detail');
+Route::get('surat-tag', [SuratController::class, 'tag'])->name('surat.tag');
 });
 
-
 //Auth
-    Route::get('login', [LoginController::class, 'index'])->name('auth.login');
-    Route::post('login', [LoginController::class, 'login'])->name('login');
-    Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('login', [LoginController::class, 'index'])->name('auth.login');
+Route::post('login', [LoginController::class, 'login'])->name('login');
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 
 //Admin
 //Route Dashboard
 
 Route::middleware(['auth:admin'])->group(function () {
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     //Route Jenis Surat
     Route::get('jenis-surat', [JenisController::class, 'index'])->name('jenis.index');
     Route::get('tambah-jenis', [JenisController::class, 'create'])->name('jenis.create');
@@ -52,14 +51,13 @@ Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.
     Route::get('arsip-surat', [ArsipController::class, 'index'])->name('arsip.index');
     Route::get('tambah-arsip', [ArsipController::class, 'create'])->name('arsip.create');
     Route::post('simpan-arsip', [ArsipController::class, 'store'])->name('arsip.store');
-
     Route::controller(ArsipController::class)->group(function () {
         //CRUD Surat
         Route::get('arsip-surat', 'index')->name('arsip.index');
         Route::get('tambah-arsip', 'create')->name('arsip.create');
         Route::post('simpan-arsip', 'store')->name('arsip.store');
         Route::delete('hapus-arsip/{id}', 'destroy')->name('arsip.delete');
-        
+
         //Get surat
         Route::get('surat-masuk', 'suratMasuk')->name('surat.masuk');
         Route::get('surat-keluar', 'suratKeluar')->name('surat.keluar');

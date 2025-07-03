@@ -30,6 +30,10 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ URL::asset('landing') }}/css/style.css" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/35e083d87e.js" crossorigin="anonymous"></script>
+
+    <link rel="icon" type="image/x-icon" href="{{ URL::asset('img') }}/logo.png" />
 </head>
 
 <body>
@@ -48,10 +52,8 @@
 
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
-                    <a href="{{ route('home.index') }}" class="nav-item nav-link active">Beranda</a>
+                    <a href="{{ route('home.index') }}" class="nav-item nav-link">Beranda</a>
                     <a href="{{ route('surat.index') }}" class="nav-item nav-link">Surat</a>
-                    {{-- <a href="service.html" class="nav-item nav-link">Services</a>
-                    <a href="contact.html" class="nav-item nav-link">Contact Us</a> --}}
                 </div>
                 @auth
                     <div class="nav-item dropdown">
@@ -118,7 +120,7 @@
         <div class="container">
             <div class="row g-4 align-items-center">
                 <div class="col-md-6 text-center text-md-start mb-md-0">
-                    <span class="text-body">Sistem Arsip Surat, Copyright DPMP4KB.</span>
+                    <span class="text-body">Sistem Arsip Surat, DPMP4KB Kab Magelang</span>
                 </div>
             </div>
         </div>

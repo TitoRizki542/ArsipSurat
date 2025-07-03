@@ -5,10 +5,6 @@
             <div class="container pb-5">
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
                     <h2 class="display-5 text-primary mb-4">Bidang Surat</h2>
-                    {{-- <p class="mb-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis
-                        cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt
-                        sint dolorem autem obcaecati, ipsam mollitia hic.
-                    </p> --}}
                 </div>
                 <div class="row g-4">
                     @foreach ($indexKategori as $kategori)
@@ -30,16 +26,12 @@
             <div class="container pb-5">
                 <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
                     <h2 class="display-5 text-primary mb-4">Arsip Surat</h2>
-                    {{-- <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis
-                        cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt
-                        sint dolorem autem obcaecati, ipsam mollitia hic.
-                    </p> --}}
                 </div>
                 <div class=" wow fadeInUp" data-wow-delay="0.5s">
                     <div class="row">
                         @foreach ($indexSurat as $surat)
                             <div class="col-lg-4">
-                                <div class="blog-item p-4 mb-5">
+                                <div class="blog-item shadow p-4 mb-5">
                                     <div class="blog-img mb-4">
                                         <img src="{{ URL::asset('landing') }}/img/service-1.jpg"
                                             class="img-fluid w-100 rounded" alt="">

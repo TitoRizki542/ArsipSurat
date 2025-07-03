@@ -11,9 +11,6 @@
 
     <meta name="description" content="" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href=" {{ URL::asset('assets') }}/img/favicon/favicon.ico" />
-
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -43,6 +40,8 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src=" {{ URL::asset('assets') }}/js/config.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="{{ URL::asset('img') }}/logo.png" />
 </head>
 
 <body>

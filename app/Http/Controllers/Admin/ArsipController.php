@@ -15,10 +15,10 @@ class ArsipController extends Controller
     {
 
         $dataSurat = Surat::with('kategori')->get();
-        // dd($dataSurat);
 
+        // dd($dataSurat);
         return view('admin.arsip.index',compact('dataSurat'));
-        
+
     }
 
     public function create()
@@ -31,7 +31,7 @@ class ArsipController extends Controller
     }
 
     public function store(Request $request){
-    
+
         // dd($request->all());
        $request->validate([
             'nama_surat' => 'required',
@@ -53,11 +53,11 @@ class ArsipController extends Controller
            'jenis_id' => $request->jenis_id,
        ];
 
-        
+
         if ($request->file('file_surat')) {
             $dataArsip['file_surat'] = $request->file('file_surat')->store('arsip-surat');
         }
-    
+
         Surat::create($dataArsip);
         // dd($dataArsip);
 
@@ -86,6 +86,15 @@ class ArsipController extends Controller
     {
         $semuaSurat = Surat::with('jenis','kategori')->get();
 
+        // / $query = request()->cari;
+        if($query = request()->cari){
+            $semuaSurat = Surat::where('isi_surat', 'like', '%' .$query. '%')
+            ->orWhere('nama_surat', 'like', '%' .$query. '%')
+            ->get();
+        }
+
+        // dd($query);
+
         return view('admin.arsip.semua-surat', compact('semuaSurat'));
     }
 
@@ -93,7 +102,7 @@ class ArsipController extends Controller
     {
         $semuaSurat = Surat::findOrFail($id);
 
-        
+
         if($semuaSurat->file_surat){
             Storage::delete($semuaSurat->file_surat);
         } $semuaSurat -> delete();

@@ -32,6 +32,8 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ URL::asset('landing') }}/css/style.css" rel="stylesheet">
+
+    <link rel="icon" type="image/x-icon" href="{{ URL::asset('img') }}/logo.png" />
 </head>
 
 <body>
@@ -49,7 +51,7 @@
 
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
-                    <a href="index.html" class="nav-item nav-link">Beranda</a>
+                    <a href="{{ route('home.index') }}" class="nav-item nav-link">Beranda</a>
                     <a href="{{ route('surat.index') }}" class="nav-item nav-link">Surat</a>
                 </div>
                 @auth
