@@ -19,6 +19,11 @@ class Bidang extends Model
 
     public function surat()
     {
-        return $this->hasMany(Surat::class, 'surat_id');
+        return $this->hasMany(Surat::class);
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
     }
 }

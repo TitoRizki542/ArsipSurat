@@ -39,6 +39,15 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
+    {{-- datatables --}}
+
+
+
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+
     <!-- Page CSS -->
 
     <!-- Helpers -->
@@ -79,12 +88,42 @@
                 <li class="menu-header small text-uppercase">
                     <span class="menu-header-text">Admin</span>
                 </li>
+
+
                 <ul class="menu-inner py-1">
                     <li class="menu-item ">
                         <a href="{{ route('dashboard.index') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
                             <div data-i18n="Analytics">Dashboard</div>
                         </a>
+                    </li>
+                    <li class="menu-header small text-uppercase">
+                        <span class="menu-header-text">Pengguna</span>
+                    </li>
+                    <li class="menu-item ">
+                        <a href="{{ route('bidang.index') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                            <div data-i18n="Analytics">Bidang</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-layout"></i>
+                            <div data-i18n="Layouts">Kelola Pengguna</div>
+                        </a>
+
+                        <ul class="menu-sub">
+                            {{-- <li class="menu-item">
+                                <a href="layouts-without-menu.html" class="menu-link">
+                                    <div data-i18n="Without menu">Admin</div>
+                                </a>
+                            </li> --}}
+                            <li class="menu-item">
+                                <a href="{{ route('pengguna.index') }}" class="menu-link">
+                                    <div data-i18n="Without menu">User</div>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="menu-header small text-uppercase">
                         <span class="menu-header-text">Administrasi</span>
@@ -95,12 +134,7 @@
                             <div data-i18n="Analytics">Jenis Surat</div>
                         </a>
                     </li>
-                    <li class="menu-item ">
-                        <a href="{{ route('kategori.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics">Kategori Surat</div>
-                        </a>
-                    </li>
+
                     <li class="menu-item ">
                         <a href="{{ route('arsip.index') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
@@ -130,28 +164,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="menu-header small text-uppercase">
-                        <span class="menu-header-text">Pengguna</span>
-                    </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-layout"></i>
-                            <div data-i18n="Layouts">Kelola Pengguna</div>
-                        </a>
 
-                        <ul class="menu-sub">
-                            {{-- <li class="menu-item">
-                                <a href="layouts-without-menu.html" class="menu-link">
-                                    <div data-i18n="Without menu">Admin</div>
-                                </a>
-                            </li> --}}
-                            <li class="menu-item">
-                                <a href="{{ route('pengguna.index') }}" class="menu-link">
-                                    <div data-i18n="Without menu">User</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
             </aside>
             <!-- / Menu -->

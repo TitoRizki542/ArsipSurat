@@ -21,6 +21,7 @@ class User extends Authenticatable
     protected $table = 'users';
 
     protected $fillable = [
+        'bidang_id',
         'nama',
         'email',
         'alamat',
@@ -29,6 +30,11 @@ class User extends Authenticatable
         'username',
         'password',
     ];
+
+    public function bidang()
+    {
+        return $this->belongsTo(Bidang::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

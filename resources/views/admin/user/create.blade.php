@@ -2,7 +2,7 @@
 @section('halaman', 'Tambah Pengguna ')
 @section('content')
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <div class="card mb-4">
                 <div class="card-body">
                     <form action="{{ route('pengguna.store') }}" method="POST">
@@ -11,7 +11,7 @@
                             <label class="col-sm-2 col-form-label" for="basic-default-name">Nama </label>
                             <div class="col-sm-10">
                                 <input type="text" name="nama" class="form-control" id="basic-default-name"
-                                    placeholder="Masukan nama jenis surat" />
+                                    placeholder="Masukan nama pengguna" />
                             </div>
                         </div>
                         <div class="row mb-3 mt-2">
@@ -43,6 +43,18 @@
                                     <option selected>Pilih Salah Satu</option>
                                     <option value="laki laki">Laki Laki</option>
                                     <option value="perempuan">Perempuan</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="html5-text-input" class="col-md-2 col-form-label">Bidang Pengguna</label>
+                            <div class="col-md-10">
+                                <select class="form-select" name="bidang_id" id="exampleFormControlSelect1"
+                                    aria-label="Default select example">
+                                    <option selected>Pilih Salah Satu</option>
+                                    @foreach ($dataBidang as $bidang)
+                                        <option value="{{ $bidang->id }}">{{ $bidang->nama }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

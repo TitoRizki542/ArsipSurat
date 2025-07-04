@@ -10,8 +10,7 @@
                         <th>Nomor Surat</th>
                         <th>Nama Surat</th>
                         <th>Tanggal Surat</th>
-                        <th>Kategori Surat</th>
-                        <th>Aksi</th>
+                        <th>Bidang Surat</th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
@@ -21,7 +20,7 @@
                             <td>{{ $data->nomor_surat }}</td>
                             <td>{{ $data->nama_surat }}</td>
                             <td>{{ $data->tanggal_surat }}</td>
-                            <td>{{ $data->kategori->nama }}</td>
+                            <td>{{ $data->bidang->nama }}</td>
                             <td></td>
                         </tr>
                     @endforeach

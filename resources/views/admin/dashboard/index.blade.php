@@ -151,7 +151,7 @@
                                     <th>No</th>
                                     <th>Nama Surat</th>
                                     <th>Jenis Surat</th>
-                                    <th>Kategori Surat</th>
+                                    <th>Bidang Surat</th>
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
@@ -160,7 +160,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td><strong>{{ $data->nama_surat }}</strong></td>
                                         <td>{{ $data->jenis->nama }}</td>
-                                        <td>{{ $data->kategori->nama }}</td>
+                                        <td>{{ $data->bidang->nama }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

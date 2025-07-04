@@ -26,8 +26,9 @@ class DatabaseSeeder extends Seeder
             'nomor_hp' => '085728006071',
             'jenis_kelamin' => 'laki laki',
             'password' => Hash::make('12341234'),
+            'bidang_id' => 1,
         ]);
-        
+
         Admin::create([
             'nama' => 'Test Admin',
             'email' => 'test@example.com',

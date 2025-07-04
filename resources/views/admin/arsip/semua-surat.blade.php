@@ -4,14 +4,33 @@
     @include('include.alert')
 
     <form action="{{ route('semua.surat') }}" method="GET">
-        <div class="row">
-            <div class="col-md-4 mb-3 d-flex gap-2">
-                <input type="text" class="form-control" placeholder="Cari.." aria-label="Cari.." name="cari" />
-                <button class="btn btn-primary" type="submit" id="cari">Cari</button>
-                <a href="{{ 'semua.surat' }}" class="btn btn-info">Kembali</a>
+        <div class="row mb-3">
+            <div class="col-md-6 d-flex gap-2">
+
+
+                <!-- Input Pencarian -->
+
+                <input type="text" class="form-control" placeholder="Cari.." name="cari" value="{{ request('cari') }}" />
+
+                <!-- Dropdown Filter -->
+                {{-- <select class="form-select" name="tag">
+                    <option value="">-- Pilih Jenis Surat --</option>
+                    @foreach ($dataJenis as $jenis)
+                        <option value="{{ $jenis->nama }}" {{ request('tag') == $jenis->nama ? 'selected' : '' }}>
+                            {{ $jenis->nama }}
+                        </option>
+                    @endforeach
+                </select> --}}
+
+                <!-- Tombol Cari -->
+                <button class="btn btn-primary" type="submit">Cari</button>
+
+                <!-- Tombol Kembali -->
+                <a href="{{ route('semua.surat') }}" class="btn btn-info">Kembali</a>
             </div>
         </div>
     </form>
+
     <div class="card">
         <div class="table-responsive text-nowrap">
             <table class="table">
@@ -22,7 +41,7 @@
                         <th>Nama Surat</th>
                         <th>Tanggal Surat</th>
                         <th>Surat Masuk/Keluar</th>
-                        <th>Kategori Surat</th>
+                        <th>Bidang Surat</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -34,14 +53,25 @@
                             <td>{{ $data->nama_surat }}</td>
                             <td>{{ $data->tanggal_surat }}</td>
                             <td>{{ $data->jenis->nama }}</td>
-                            <td>{{ $data->kategori->nama }}</td>
+                            <td>{{ $data->bidang->nama }}</td>
                             <td>
-                                <form action="{{ route('arsip.delete', $data->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger btn-md" type="submit" id="{{ $data->id }}"><i
-                                            class="fa-solid fa-trash"></i></button>
-                                </form>
+                                <div class="row">
+                                    <div class="d-flex gap-2">
+
+                                        <form>
+                                            <a href="{{ route('arsip.edit', $data->id) }}" class="btn btn-primary btn-lg"><i
+                                                    class="fa-solid fa-pen"></i></a>
+                                        </form>
+                                        <form action="{{ route('arsip.delete', $data->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger btn-lg" type="submit"
+                                                id="{{ $data->id }}"><i class="fa-solid fa-trash"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                                {{-- {{ route('arsip.edit', $data->id) }} --}}
+
                             </td>
                         </tr>
                     @endforeach

@@ -19,6 +19,7 @@
                                 <th>Jenis Kelamin</th>
                                 <th>Email</th>
                                 <th>Nomor Hp</th>
+                                <th>Bidang</th>
                                 <th>Username</th>
                                 <th>Aksi</th>
                             </tr>
@@ -30,13 +31,11 @@
                                     <td>{{ $data->nama }}</td>
                                     <td>{{ $data->jenis_kelamin }}</td>
                                     <td>{{ $data->email }}</td>
+                                    <td>{{ $data->bidang->nama }}</td>
                                     <td>{{ $data->nomor_hp }}</td>
                                     <td>{{ $data->username }}</td>
                                     <td>
                                         <div class="d-flex gap-2">
-                                            <button type="button" class="btn btn-icon btn-info">
-                                                <span class="tf-icons bx bx-info-circle"></span>
-                                            </button>
                                             <form action="{{ route('pengguna.delete', $data->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')

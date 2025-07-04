@@ -2,23 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Bidang;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
     public function index()
     {
+        $dataUser = User::with('bidang')->get();
 
-        $dataUser = User::all();
+        // dd($dataUser->toArray());
 
         return view('admin.user.index',compact('dataUser'));
     }
 
     public function create()
     {
-        return view('admin.user.create');
+        $dataBidang = Bidang::all();
+
+        return view('admin.user.create', compact('dataBidang'));
     }
 
     public function store(Request $request)
@@ -26,13 +30,14 @@ class UserController extends Controller
 
         // dd($request->all());
         $validateData = $request->validate([
+            'bidang_id'=>'required',
             'nama'=>'required',
             'email'=>'required',
             'alamat'=>'required',
             'nomor_hp'=>'required',
             'jenis_kelamin'=>'required',
             'username'=>'required',
-            'password'=>'required',        
+            'password'=>'required',
         ]);
 
         User::create($validateData);

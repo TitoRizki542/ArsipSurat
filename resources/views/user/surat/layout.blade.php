@@ -79,7 +79,7 @@
         <div class="container">
             <div class="row g-4 align-items-center">
                 <div class="col-md-6 text-center text-md-start mb-md-0">
-                    <span class="text-body">Sistem Arsip Surat, All right reserved.</span>
+                    <span class="text-body">Sistem Arsip Surat, DPMP4KB Kab Magelang</span>
                 </div>
             </div>
         </div>

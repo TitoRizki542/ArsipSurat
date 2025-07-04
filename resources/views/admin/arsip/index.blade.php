@@ -9,7 +9,7 @@
             </a>
         </h5>
         <div class="table-responsive text-nowrap">
-            <table class="table">
+            <table class="table" id="myTable">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -17,7 +17,7 @@
                         <th>Nama Surat</th>
                         <th>Tanggal Surat</th>
                         <th>Surat Masuk/Keluar</th>
-                        <th>Kategori Surat</th>
+                        <th>Bidang Surat</th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
@@ -28,7 +28,7 @@
                             <td>{{ $data->nama_surat }}</td>
                             <td>{{ $data->tanggal_surat }}</td>
                             <td>{{ $data->jenis->nama }}</td>
-                            <td>{{ $data->kategori->nama }}</td>
+                            <td>{{ $data->bidang->nama }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -36,3 +36,7 @@
         </div>
     </div>
 @endsection
+
+<script>
+    new DataTable('#example');
+</script>

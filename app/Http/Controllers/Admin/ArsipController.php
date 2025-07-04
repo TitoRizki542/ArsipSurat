@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Jenis;
 use Illuminate\Http\Request;
 use App\Models\Surat;
-use App\Models\Kategori;
+use App\Models\Bidang;
 use Illuminate\Support\Facades\Storage;
 
 class ArsipController extends Controller
@@ -14,42 +14,53 @@ class ArsipController extends Controller
     public function index()
     {
 
-        $dataSurat = Surat::with('kategori')->get();
+         if (request()->filled('cari')) {
+            $cari = request()->input('cari');
+
+            // Sesuaikan dengan kolom relasi `jenis`
+            $query->whereHas('jenis', function ($q) use ($cari) {
+                $q->where('nama', 'like', '%' . $cari . '%');
+            });
+        }
+
+        $dataSurat = Surat::with('bidang')->get();
 
         // dd($dataSurat);
         return view('admin.arsip.index',compact('dataSurat'));
 
-    }
+     }
 
     public function create()
     {
-        $dataKategori = Kategori::get();
+        $dataBidang = Bidang::get();
         $dataJenis = Jenis::get();
 
-        // dd($dataKategori);
-        return view('admin.arsip.create', compact('dataKategori','dataJenis'));
+        // dd($dataBidang);
+        return view('admin.arsip.create', compact('dataBidang','dataJenis'));
     }
 
     public function store(Request $request){
 
         // dd($request->all());
        $request->validate([
+            'bidang_id' => 'required',
             'nama_surat' => 'required',
             'nomor_surat' => 'required',
             'tanggal_surat' => 'required',
             'isi_surat' => 'required',
             'file_surat' => 'file|mimes:pdf|max:4048',
-            'kategori_id' => 'required',
+            'bidang_id' => 'required',
             'jenis_id' => 'required',
         ]);
 
        $dataArsip = [
+
            'nama_surat' => $request->nama_surat,
            'nomor_surat' => $request->nomor_surat,
            'tanggal_surat' => $request->tanggal_surat,
            'isi_surat' => $request->isi_surat,
            'file_surat' => $request->file_surat,
-           'kategori_id' => $request->kategori_id,
+           'bidang_id' => $request->bidang_id,
            'jenis_id' => $request->jenis_id,
        ];
 
@@ -69,7 +80,9 @@ class ArsipController extends Controller
         $suratMasuk = Surat::whereHas('jenis', function ($q) {
                 $q->where('nama', 'Surat Masuk');
             })->with('jenis')->get();
-        // dd($suratMasuk);
+
+
+
         return view('admin.arsip.surat-masuk', compact('suratMasuk'));
     }
 
@@ -82,20 +95,81 @@ class ArsipController extends Controller
         return view('admin.arsip.surat-keluar', compact('suratKeluar'));
     }
 
+
     public function semuaSurat()
     {
-        $semuaSurat = Surat::with('jenis','kategori')->get();
+        $dataJenis = Jenis::all();
 
-        // / $query = request()->cari;
-        if($query = request()->cari){
-            $semuaSurat = Surat::where('isi_surat', 'like', '%' .$query. '%')
-            ->orWhere('nama_surat', 'like', '%' .$query. '%')
-            ->get();
+        // Mulai query builder
+        $semuaSurat = Surat::with('jenis');
+
+        // Tangkap input pencarian dan tag
+        $cari = request()->input('cari');
+
+        // Jika ada input pencarian, tambahkan kondisi where
+        if ($cari) {
+            $semuaSurat->where(function ($query) use ($cari) {
+                $query->where('isi_surat', 'like', '%' . $cari . '%')
+                      ->orWhere('nama_surat', 'like', '%' . $cari . '%')
+                      ->get();
+            });
+        }
+        // Jika ada tag, tambahkan kondisi whereHas untuk relasi jenis
+
+
+
+        // Eksekusi query
+        $semuaSurat = $semuaSurat->get();
+
+        return view('admin.arsip.semua-surat', compact('semuaSurat', 'dataJenis'));
+    }
+
+
+    public function edit($id)
+    {
+        $semuaSurat = Surat::findOrFail($id);
+        $dataBidang = Bidang::get();
+        $dataJenis = Jenis::get();
+
+        // dd($semuaSurat);
+        return view('admin.arsip.edit', compact('semuaSurat','dataBidang','dataJenis'));
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        // dd($request->all());
+        $semuaSurat = Surat::findOrFail($id);
+
+        $request->validate([
+            'bidang_id' => 'required',
+            'nama_surat' => 'required',
+            'nomor_surat' => 'required',
+            'tanggal_surat' => 'required',
+            'isi_surat' => 'required',
+            'file_surat' => 'file|mimes:pdf|max:4048',
+            'jenis_id' => 'required',
+        ]);
+
+        $dataArsip = [
+            'nama_surat' => $request->nama_surat,
+            'nomor_surat' => $request->nomor_surat,
+            'tanggal_surat' => $request->tanggal_surat,
+            'isi_surat' => $request->isi_surat,
+            'bidang_id' => $request->bidang_id,
+            'jenis_id' => $request->jenis_id,
+        ];
+
+        if ($request->file('file_surat')) {
+            if ($semuaSurat->file_surat) {
+                Storage::delete($semuaSurat->file_surat);
+            }
+            $dataArsip['file_surat'] = $request->file('file_surat')->store('arsip-surat');
         }
 
-        // dd($query);
+        $semuaSurat->update($dataArsip);
 
-        return view('admin.arsip.semua-surat', compact('semuaSurat'));
+        return redirect()->route('semua.surat')->with('success', "Data Surat berhasil diupdate");
     }
 
     public function destroy($id)

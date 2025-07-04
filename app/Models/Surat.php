@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Jenis;
-use App\Models\Kategori;
+use App\Models\Bidang;
 
 class Surat extends Model
 {
@@ -14,7 +14,7 @@ class Surat extends Model
     protected $table = 'surat';
 
     protected $fillable = [
-        'kategori_id',
+        'bidang_id',
         'jenis_id',
         'nomor_surat',
         'nama_surat',
@@ -29,13 +29,13 @@ class Surat extends Model
     //     return $this->belongsTo(User::class, 'users_id');
     // }
 
-    public function kategori()
+    public function bidang()
     {
-        return $this->belongsTo(Kategori::class, 'kategori_id');
+        return $this->belongsTo(Bidang::class);
     }
 
      public function jenis()
     {
-        return $this->belongsTo(Jenis::class, 'jenis_id');
+        return $this->belongsTo(Jenis::class);
     }
 }

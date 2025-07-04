@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Jenis;
-use App\Models\Kategori;
+use App\Models\Bidang;
 use App\Models\Surat;
 use Illuminate\Http\Request;
 
@@ -24,12 +24,12 @@ class DashboardController extends Controller
             })->with('jenis')->count();
 
 
-        $dataKategori = Kategori::count();
+        $dataBidang = Bidang::count();
 
         $dataJenis = Jenis::count();
 
-        $dataSurat = Surat::with('jenis','kategori')->orderBy('id','DESC')->paginate(3);
+        $dataSurat = Surat::with('jenis','bidang')->orderBy('id','DESC')->paginate(5);
 
-        return view('admin.dashboard.index', compact('suratMasuk','suratKeluar','dataKategori','dataJenis','dataSurat','jenisSurat'));
+        return view('admin.dashboard.index', compact('suratMasuk','suratKeluar','dataBidang','dataJenis','dataSurat','jenisSurat'));
     }
 }

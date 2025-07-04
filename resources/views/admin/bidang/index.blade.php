@@ -1,12 +1,12 @@
 @extends('admin.master.layout')
-@section('halaman', 'Kategori Surat')
+@section('halaman', 'Data Bidang ')
 @section('content')
     @include('include.alert')
     <div class="row">
         <div class="col-lg-8">
             <div class="card">
                 <h5 class="card-header">
-                    <a href="{{ route('kategori.create') }}" class="btn rounded-pill btn-primary">
+                    <a href="{{ route('bidang.create') }}" class="btn rounded-pill btn-primary">
                         <i class="fa-solid fa-file-circle-plus"></i>&nbsp; Tambah Data
                     </a>
                 </h5>
@@ -15,13 +15,13 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Jenis</th>
+                                <th>Bidang</th>
                                 <th>Deskripsi</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                            @foreach ($dataKategori as $data)
+                            @foreach ($dataBidang as $data)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td><strong>{{ $data->nama }}</strong></td>
@@ -43,7 +43,7 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
-                                                    <form action="{{ route('kategori.edit', $data->id) }}" method="POST">
+                                                    <form action="{{ route('bidang.edit', $data->id) }}" method="POST">
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="modal-body">
@@ -72,7 +72,7 @@
                                             </div>
                                         </div>
 
-                                        <form action="{{ route('kategori.delete', $data->id) }}" method="POST"
+                                        <form action="{{ route('bidang.delete', $data->id) }}" method="POST"
                                             class="d-inline">
                                             @csrf
                                             @method('DELETE')
