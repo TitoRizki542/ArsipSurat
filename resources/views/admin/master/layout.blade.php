@@ -39,15 +39,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-    {{-- datatables --}}
-
-
-
-
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css" />
-    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
-
     <!-- Page CSS -->
 
     <!-- Helpers -->

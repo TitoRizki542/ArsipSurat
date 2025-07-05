@@ -38,5 +38,5 @@
 @endsection
 
 <script>
-    new DataTable('#example');
+    new DataTable('#mytable');
 </script>

@@ -77,21 +77,43 @@ class ArsipController extends Controller
 
     public function suratMasuk ()
     {
-        $suratMasuk = Surat::whereHas('jenis', function ($q) {
-                $q->where('nama', 'Surat Masuk');
-            })->with('jenis')->get();
+        $query = Surat::whereHas('jenis', function ($q) {
+            $q->where('nama', 'Surat Masuk');
+        });
 
+        if (request()->filled('cari')) {
+            $cari = request()->input('cari');
 
+            // Tambahkan pencarian pada kolom-kolom tertentu
+            $query->where(function ($q) use ($cari) {
+                $q->where('nama_surat', 'like', '%' . $cari . '%')
+                ->orWhere('isi_surat', 'like', '%' . $cari . '%');
+            });
+        }
+
+        $suratMasuk = $query->with('jenis')->get();
 
         return view('admin.arsip.surat-masuk', compact('suratMasuk'));
     }
 
     public function suratKeluar ()
     {
-        $suratKeluar = Surat::whereHas('jenis', function ($q) {
+        $query = Surat::whereHas('jenis', function ($q) {
                 $q->where('nama', 'Surat Keluar');
-            })->with('jenis')->get();
-        // dd($suratKeluar);
+        });
+
+        if (request()->filled('cari')) {
+                $cari = request()->input('cari');
+
+                // Tambahkan pencarian pada kolom-kolom tertentu
+                $query->where(function ($q) use ($cari) {
+                    $q->where('nama_surat', 'like', '%' . $cari . '%')
+                    ->orWhere('isi_surat', 'like', '%' . $cari . '%');
+            });
+        }
+
+        $suratKeluar = $query->with('jenis')->get();
+
         return view('admin.arsip.surat-keluar', compact('suratKeluar'));
     }
 
