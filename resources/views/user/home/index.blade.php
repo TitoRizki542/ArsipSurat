@@ -4,11 +4,33 @@
         <div class="container-fluid feature pb-5">
             <div class="container pb-5">
 
+
                 {{-- Menampilkan data bidang --}}
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
                     <h2 class="display-5 text-primary mb-4">Bidang Surat</h2>
                 </div>
-                <div class="row g-4" style="justify-content: center">
+                <div class="row justify-content-center wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="col-lg-9">
+                        @foreach ($indexBidang as $bidang)
+                            <div class="d-flex mb-3 border-bottom pb-3">
+                                <!-- Gambar Thumbnail -->
+                                <div class="me-3" style="flex-shrink: 0;">
+                                    <img src="{{ asset('storage/' . $bidang->thumbnail) }}" alt="Thumbnail"
+                                        style="width: 180px; height: 140px; object-fit: cover; border-radius: 5px;">
+                                </div>
+
+                                <!-- Konten Teks -->
+                                <div>
+                                    <h4 class="mb-1 text-dark fw-bold">{{ $bidang->nama }}</h4>
+                                    <p class="mb-0 text-muted" style="font-size: 14px;">{{ $bidang->deskripsi }}</p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+
+                {{-- <div class="row g-4" style="justify-content: center">
                     @foreach ($indexBidang as $bidang)
                         <div class="col-md-6 col-lg-6 col-xl-2 wow fadeInUp" data-wow-delay="0.5s">
                             <div class="feature-item p-4 shadow">
@@ -44,7 +66,7 @@
                             </div>
                         </div>
                     @endforeach
-                </div>
+                </div>  --}}
             </div>
         </div>
     </section>
@@ -53,7 +75,7 @@
             <div class="container pb-5">
                 {{-- Menampilkan data surat --}}
                 <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                    <h2 class="display-5 text-primary mb-4">Arsip Surat</h2>
+                    {{-- <h2 class="display-5 text-primary mb-4">Arsip Surat</h2> --}}
                 </div>
                 <div class=" wow fadeInUp" data-wow-delay="0.5s">
                     <div class="row" style="justify-content: center">

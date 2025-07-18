@@ -3,7 +3,7 @@
 @section('content')
     @include('include.alert')
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <div class="card">
                 <h5 class="card-header">
                     <a href="{{ route('bidang.create') }}" class="btn rounded-pill btn-primary">
@@ -15,6 +15,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Thumbnail</th>
                                 <th>Bidang</th>
                                 <th>Deskripsi</th>
                                 <th>Aksi</th>
@@ -24,6 +25,10 @@
                             @foreach ($dataBidang as $data)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        <img src="{{ asset('storage/' . $data->thumbnail) }}" alt="Thumbnail Surat"
+                                            width="120">
+                                    </td>
                                     <td><strong>{{ $data->nama }}</strong></td>
                                     <td>{{ $data->deskripsi }}</td>
                                     <td>
@@ -43,7 +48,8 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
-                                                    <form action="{{ route('bidang.edit', $data->id) }}" method="POST">
+                                                    <form action="{{ route('bidang.edit', $data->id) }}" method="POST"
+                                                        enctype="multipart/form-data">
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="modal-body">
@@ -61,6 +67,13 @@
                                                                     name="deskripsi" class="form-control"
                                                                     value="{{ $data->deskripsi }}" required>
                                                             </div>
+                                                            <div class="mb-3">
+                                                                <label for="deskripsi{{ $data->id }}"
+                                                                    class="form-label">thumbnail</label>
+                                                                <input type="file" name="thumbnail" class="form-control"
+                                                                    accept="image/*">
+                                                            </div>
+
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"

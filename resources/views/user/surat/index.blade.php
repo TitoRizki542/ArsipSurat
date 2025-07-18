@@ -19,66 +19,63 @@
             <div class="container mt-auto">
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
                     <div class=" bg-light shadow p-3 rounded h-100 wow fadeInUp" data-wow-delay="0.2s">
-                        {{-- Form Pencarian Surat --}}
-                        {{-- <div class="row mb-4">
-                            <form action="{{ route('surat.index') }}" method="GET">
-                                <div class="d-flex justify-content-between gap-2">
-                                    <div class="col-lg-8">
+                        <div class="row mb-2">
+                            <form action="{{ route('surat.index') }}" method="GET" class="w-100">
+                                <div class="d-flex flex-wrap justify-content-between gap-2">
+
+                                    {{-- Input Pencarian --}}
+                                    <div class="col-lg-4">
                                         <div class="form-floating">
                                             <input type="text" class="form-control rounded-pill border-0" id="subject"
-                                                placeholder="Cari Surat" name="cari">
-                                            <label for="subject">Cari
-                                                Surat</label>
+                                                placeholder="Cari Surat" name="cari" value="{{ request('cari') }}">
+                                            <label for="subject">Cari Surat</label>
                                         </div>
-
                                     </div>
 
-                                    <div class="col-lg-2">
-                                        <button class="btn btn-sm btn-primary w-100 py-3 rounded-pill"
-                                            type="submit">Cari</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div> --}}
-
-                        <div class="row mb-4">
-                            <div class="col-lg-8"></div>
-                            <form action="{{ route('surat.index') }}" method="GET">
-                                <div class="d-flex justify-content-between gap-2">
-                                    <div class="col-lg-7">
+                                    {{-- Dropdown Jenis Surat --}}
+                                    <div class="col-lg-4">
                                         <div class="form-floating my-auto">
-                                            <select class="form-select rounded-pill border-0" id="subject" name="cari">
+                                            <select class="form-select rounded-pill border-0" name="tag"
+                                                onchange="this.form.submit()">
                                                 <option value="">-- Pilih Nama Surat --</option>
                                                 @foreach ($jenisSurat as $jenis)
-                                                    <option value="{{ $jenis->nama }}">{{ $jenis->nama }}
+                                                    <option value="{{ $jenis->id }}"
+                                                        {{ request('tag') == $jenis->id ? 'selected' : '' }}>
+                                                        {{ $jenis->nama }}
                                                     </option>
                                                 @endforeach
                                             </select>
-                                            <label for="subject">PiliH Jenis Surat</label>
+                                            <label for="jenisSurat">Pilih Jenis Surat</label>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div class="d-flex gap-3">
-                                            <button class="btn btn-sm btn-primary w-100 py-3 rounded-pill"
-                                                type="submit">Cari</button>
-                                            <a href="{{ route('surat.index') }}"
-                                                class="btn btn-sm btn-primary w-100 py-3 rounded-pill">
-                                                Reset
-                                            </a>
-                                        </div>
+
+                                    <!-- {{-- Tombol Cari opsional --}}
+                                                    <div class="col-lg-2">
+                                                        <button class="btn btn-sm btn-primary w-100 py-3 rounded-pill" type="submit">
+                                                            Cari
+                                                        </button>
+                                                    </div> -->
+
+                                    {{-- Tombol Reset --}}
+                                    <div class="col-lg-2">
+                                        <a href="{{ route('surat.index') }}"
+                                            class="btn btn-sm btn-primary w-100 py-3 rounded-pill">
+                                            Reset
+                                        </a>
                                     </div>
                                 </div>
                             </form>
                         </div>
 
+
                         {{-- <div class="row mb-4">
                             <form action="{{ route('surat.index') }}" method="GET" class="text-start">
-                                @foreach ($indexBidang as $bidang)
-                                    <button name="tag" class="btn btn-sm btn-outline-primary"
-                                        value="{{ $bidang->id }}">{{ $bidang->nama }}</button>
-                                @endforeach
-                            </form>
-                        </div> --}}
+                    @foreach ($indexBidang as $bidang)
+                    <button name="tag" class="btn btn-sm btn-outline-primary"
+                        value="{{ $bidang->id }}">{{ $bidang->nama }}</button>
+                    @endforeach
+                    </form>
+                </div> --}}
                     </div>
                 </div>
                 <div class=" wow fadeInUp" data-wow-delay="0.2s">

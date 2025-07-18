@@ -26,8 +26,15 @@ class BidangController extends Controller
         $dataBidang = $request->validate([
             'nama' => 'required',
             'deskripsi' => 'required',
+            'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
-        // dd($dataJenis);
+
+        if ($request->hasFile('thumbnail')) {
+            $file = $request->file('thumbnail');
+            $path = $file->store('thumbnails', 'public'); // simpan ke storage/app/public/thumbnails
+            $dataBidang['thumbnail'] = $path;
+        }
+        // dd($datadaBidang);
 
         bidang::create($dataBidang);
 
@@ -39,13 +46,30 @@ class BidangController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'deskripsi' => 'required|string',
+            'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png|max:4048',
         ]);
 
         $dataBidang = Bidang::findOrFail($id);
-        $dataBidang->update([
-            'nama' => $request->nama,
-            'deskripsi' => $request->deskripsi,
-        ]);
+
+        if ($request->hasFile('thumbnail')) {
+        // Hapus file lama jika ada
+        if ($dataBidang->thumbnail && \Storage::disk('public')->exists($dataBidang->thumbnail)) {
+            \Storage::disk('public')->delete($dataBidang->thumbnail);
+        }
+
+        // Simpan file baru
+                $path = $request->file('thumbnail')->store('thumbnails', 'public');
+            } else {
+                // Gunakan path lama
+                $path = $dataBidang->thumbnail;
+            }
+
+            // Update data
+            $dataBidang->update([
+                'nama' => $request->nama,
+                'deskripsi' => $request->deskripsi,
+                'thumbnail' => $path,
+            ]);
 
         return redirect()->route('bidang.index')->with('success', 'Data Bidang berhasil diperbarui.');
     }
@@ -56,6 +80,11 @@ class BidangController extends Controller
         if (Surat::where('bidang_id', $id)->exists()) {
             return redirect()->back()->with('error', 'Data Bidang tidak dapat dihapus, Karena digunakan dalam surat.');
         }
+        // Hapus thumbnail jika ada
+        if ($dataBidang->thumbnail) {
+            \Storage::disk('public')->delete($dataBidang->thumbnail);
+        }
+        // Hapus data bidang
         $dataBidang->delete();
 
         return redirect()->route('bidang.index')->with('success', 'Data Bidang berhasil dihapus.');

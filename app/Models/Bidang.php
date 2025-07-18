@@ -15,6 +15,7 @@ class Bidang extends Model
     protected $fillable = [
         'nama',
         'deskripsi',
+        'thumbnail'
     ];
 
     public function surat()

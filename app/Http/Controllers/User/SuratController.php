@@ -11,65 +11,64 @@ use App\Http\Controllers\Controller;
 
 class SuratController extends Controller
 {
-   public function index()
-{
+    public function index()
+    {
 
 
-    // Ambil semua jenis surat untuk dropdown
-    $jenisSurat = jenis::all();
+        // Ambil semua jenis surat untuk dropdown
+        $jenisSurat = jenis::all();
 
-    // Ambil semua bidang untuk ditampilkan
-    $indexBidang = Bidang::all();
+        // Ambil semua bidang untuk ditampilkan
+        $indexBidang = Bidang::all();
 
-    // Ambil bidang user login
-    $bidang = User::with('bidang')->find(auth()->user()->id)?->bidang->nama;
+        // Ambil bidang user login
+        $bidang = User::with('bidang')->find(auth()->user()->id)?->bidang->nama;
 
-    // Jika tidak login atau bidang kosong
-    if (!auth()->check() || auth()->user()->bidang_id === null) {
-        $indexSurat = collect();
-    } else {
-        $user = auth()->user();
+        // Jika tidak login atau bidang kosong
+        if (!auth()->check() || auth()->user()->bidang_id === null) {
+            $indexSurat = collect();
+        } else {
+            $user = auth()->user();
 
-        // Bangun query awal berdasarkan bidang
-        $query = Surat::with(['bidang', 'jenis'])
-            ->where('bidang_id', $user->bidang_id);
+            // Bangun query awal berdasarkan bidang
+            $query = Surat::with(['bidang', 'jenis'])
+                ->where('bidang_id', $user->bidang_id);
 
-        //Pencarian Dengan tagging
-        if (request()->filled('tag')) {
-            $tag = request()->input('tag');
+            //Pencarian Dengan tagging
+            if (request()->filled('tag')) {
+                $tag = request()->input('tag');
 
-            $query->whereHas('jenis', function ($q) use ($tag) {
-                $q->where('jenis_id', $tag);
-            });
+                $query->whereHas('jenis', function ($q) use ($tag) {
+                    $q->where('jenis_id', $tag);
+                });
+            }
 
+            // Pencarian dengan filter dropdown
+            if (request()->filled('cari')) {
+                $cari = request()->input('cari');
+
+                $query->where(function ($q) use ($cari) {
+                    $q->where('nama_surat', 'like', '%' . $cari . '%')
+                        ->orWhere('isi_surat', 'like', '%' . $cari . '%');
+                });
+            }
+
+
+            $indexSurat = $query->get();
+
+            // Jika ada filter jenis surat, ambil berdasarkan jenis
         }
 
-        // Pencarian dengan filter dropdown
-        if (request()->filled('cari')) {
-            $cari = request()->input('cari');
-
-            // Sesuaikan dengan kolom relasi `jenis`
-            $query->whereHas('jenis', function ($q) use ($cari) {
-                $q->where('nama', 'like', '%' . $cari . '%');
-            });
-     }
-
-        $indexSurat = $query->get();
-
-        // Jika ada filter jenis surat, ambil berdasarkan jenis
+        return view('user.surat.index', compact('indexSurat', 'indexBidang', 'bidang', 'jenisSurat'));
     }
-
-    return view('user.surat.index', compact('indexSurat', 'indexBidang', 'bidang', 'jenisSurat'));
-}
 
 
     public function detail($id)
     {
-        $detailSurat = Surat::with('jenis','bidang')->findOrFail($id);
+        $detailSurat = Surat::with('jenis', 'bidang')->findOrFail($id);
 
         $bidang = User::with('bidang')->find(auth()->user()->id)->bidang->nama;
 
-        return view('user.surat.detail', compact('detailSurat','bidang'));
+        return view('user.surat.detail', compact('detailSurat', 'bidang'));
     }
-
 }

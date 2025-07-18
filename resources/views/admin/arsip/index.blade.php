@@ -37,6 +37,4 @@
     </div>
 @endsection
 
-<script>
-    new DataTable('#mytable');
-</script>
+

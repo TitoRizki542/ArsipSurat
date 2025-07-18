@@ -3,7 +3,7 @@
 @section('content')
     @include('include.alert')
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <div class="card">
                 <h5 class="card-header">
                     <a href="{{ route('jenis.create') }}" class="btn rounded-pill btn-primary">
